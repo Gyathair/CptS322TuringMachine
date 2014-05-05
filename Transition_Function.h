@@ -23,10 +23,10 @@ class Transition_Function
         string Destination_state(int index) const;
         char Write_Character(int index) const;
         bool Is_Defined_Transition(string source_state,
-	char read_character,
-	string & destination_state,
-	char & write_character,
-	direction & move_direction) const;
+        char read_character,
+        string & destination_state,
+        char & write_character,
+        direction & move_direction) const;
         bool Is_Source_State(string state) const;
 };
 #endif

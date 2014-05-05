@@ -7,7 +7,26 @@ using namespace std;
 
 void Tape_Alphabet::Load(ifstream &definition, bool &valid)
 {
-	//TODO
+	string line;
+	int pos = definition.tellg();
+	getLine(definition, line);
+	if(trim(line).empty())
+		getline(definition, line);
+	stringstream parseme(line);
+	string current;
+	parseme >> current;
+	if(convertToUpper(current).compare("TAPE_ALPHABET:")!=0)
+	{
+		definition.seekg(pos, definition.beg);
+		cout << "Tape Alphabet not defined\n";
+		valid = false;
+		return;
+	}
+
+	while(parseme >> current)
+	{
+		alphabet.add(current[0]);
+	}
 }
 
 void Tape_Alphabet::View() const

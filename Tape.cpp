@@ -2,6 +2,7 @@
 #include "Direction.h"
 #include "stringplay.h"
 #include "Crash.h"
+#include "Visible.h"
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -30,7 +31,7 @@ void Tape::Load(ifstream & definition, bool &valid)
 	}
 }
 
-void Tape:: View() const
+void Tape::View() const
 {
 	cout << "B = " << blank << "\n\n";
 }

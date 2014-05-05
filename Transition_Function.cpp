@@ -9,11 +9,58 @@ using namespace std;
 
 void Transition_Function::Load(ifstream & definition,bool & valid)
 {
-	//TODO: this section
+    string line;
+    int pos = definition.tellg();
+    getLine(definition, line);
+    if(trim(line).empty())
+        getline(definition, line);
+
+    if(convertToUpper(line).compare("TRANSITION_FUNCTION:")!=0)
+    {
+        definition.seekg(pos, definition.beg);
+        cout << "Transition Function section either not defined or in correct location\n";
+        valid = false;
+        return;
+    }
+    while(true)
+    {
+        getline(definition,line);
+        if(line.empty())
+            continue;
+
+        pos = definition.tellg();
+
+        stringstream parseme(line);
+        string current;
+        parseme >> current;
+        if(current.compare("INITIAL_STATE:"))
+        {
+            break;
+        }
+        string source_state;
+        string read_character;
+        string destination_state;
+        string write_character;
+        direction move_direction;
+        try{
+            parseme >> source_state;
+            parseme >> read_character;
+            parseme >> destination_state;
+            parseme >> write_character;
+            parseme >> move_direction;
+            Transition tran(source_state, read_character[0], destination_state, write_character[0], move_direction);
+            transitions.add(tran);
+        }catch(...)
+        {
+            cout << "malformed transition at line beginning with : " << source_state << "\n";
+            valid = false;
+        }
+    }
+    definition.seekg(pos);
 }
 void Transition_Function::View() const
 {
-    // \u03B4
+    // \u03B4 = lower case delta
     cout << "Transitions:\n";
     for(int i = 0; i < transitions.size(); i++)
     {
