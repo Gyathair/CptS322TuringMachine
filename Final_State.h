@@ -26,7 +26,7 @@ public:
 	static int Total_Number_Of_States();
 };
 
-typedef Final_State * State_Pointer;
+typedef Final_State * Final_State_Pointer;
 
 #endif
 

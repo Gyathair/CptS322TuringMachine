@@ -19,8 +19,8 @@ public:
     void View() const;
     void Initialize(string input_string);
     void Update(char write_character, direction move_direction);
-    string Left(int maximum_number_of_cells);
-    string Right(int maximum_number_of_cells);
+    string Left(int maximum_number_of_cells) const;
+    string Right(int maximum_number_of_cells) const;
     char Get_Current_Character() const;
     char Get_Blank_Character() const;
     bool Is_First_Cell() const;

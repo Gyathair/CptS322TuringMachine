@@ -1,11 +1,11 @@
 #ifndef TURING_MACHINE_H
 #define TURING_MACHIN_H
-#include “Tape.h”
-#include “Input_Alphabet.h”
-#include “Tape_Alphabet.h”
-#include “Transition_Function.h”
-#include “States.h”
-#include “Final_States.h”
+#include "Tape.h"
+#include "Input_Alphabet.h"
+#include "Tape_Alphabet.h"
+#include "Transition_Function.h"
+#include "States.h"
+#include "Final_States.h"
 #include <string>
 #include <vector>
 using namespace std;
@@ -24,15 +24,15 @@ private:
 	string original_input_string;
 	int number_of_transitions;
 	bool valid;
-	bool used,
+	bool used;
 	bool operating;
 	bool accepted;
 	bool rejected;
 
 public:
 	Turing_Machine(string definition_file_name);
-	void View_Definirtion() const;
-	void View_Instantaneous_Desc(int maximum number of cells) const;
+	void View_Definition() const;
+	void View_Instantaneous_Desc(int maximum_number_of_cells) const;
 	void Initialize(string input_string);
 	void Perform_Transitions(int maximum_number_of_transitions);
 	void Terminate_Operation();

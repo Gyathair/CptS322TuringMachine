@@ -24,11 +24,28 @@ void Tape::Load(ifstream & definition, bool &valid)
        	cout << "Illegal blank character.\n";
        	valid = false;
 	}
+	int pos = definition.tellg();
+	if(!(definition >> value))
+	{
+		cout << "Unexpected end of file\n";
+		valid = false;
+	}
+	if(value.empty())
+	{
+		pos = definition.tellg();
+		if(!(definition >> value))
+		{
+			cout << "Unexpected end of file\n";
+			valid = false;
+		}
+	}
+
 	if ((!(definition >> value)) && (convertToUpper(value)!="FINAL_STATES:"))
 	{
 	        cout << "Missing keyword after blank character.\n";
 	        valid=false;
 	}
+	definition.seekg(pos);
 }
 
 void Tape::View() const
@@ -57,7 +74,7 @@ void Tape::Update(char write_character, direction move_direction)
 		current_cell++;
 }
 
-string Tape::Left(int maximum_number_of_cells)
+string Tape::Left(int maximum_number_of_cells) const
 {
 	int first_cell = max(0,current_cell - maximum_number_of_cells);
 	string value = cells.substr(first_cell, current_cell-first_cell);
@@ -66,7 +83,7 @@ string Tape::Left(int maximum_number_of_cells)
 	return value;
 }
 
-string Tape::Right(int maximum_number_of_cells)
+string Tape::Right(int maximum_number_of_cells) const
 {
 	int end_cell = cells.length() - 1;
 	while(end_cell >= current_cell && cells[end_cell] == blank)
