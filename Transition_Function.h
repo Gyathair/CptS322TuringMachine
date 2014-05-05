@@ -11,7 +11,7 @@ using namespace std;
 class Transition_Function
 {
     private:
-        vector<Transition> transistions;
+        vector<Transition> transitions;
 
     public:
         void Load(ifstream & definition,

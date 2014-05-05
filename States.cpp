@@ -4,7 +4,9 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include <iostream>
+#include "stringplay.h"
 
 using namespace std;
 
@@ -12,7 +14,7 @@ void States::Load(ifstream &definition, bool &valid)
 {
 	string line;
 	int pos = definition.tellg();
-	getLine(definition, line);
+	getline(definition, line);
 	if(trim(line).empty())
 		getline(definition, line);
 	stringstream parseme(line);
@@ -29,7 +31,7 @@ void States::Load(ifstream &definition, bool &valid)
 	while(parseme >> current)
 	{
 		State st(current);
-		states.add(st);
+		states.push_back(st);
 	}
 }
 
@@ -63,7 +65,7 @@ bool States::Is_Element(string state) const
 	for(int i = 0; i < states.size(); i ++)
 	{
 		string name;
-		states[i].Get_Name(&name);
+		states[i].Get_Name(name);
 		if(name.compare( state ) == 0 )
 			return true;
 	}

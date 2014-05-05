@@ -1,7 +1,9 @@
 #include "Transition_Function.h"
 #include "Transition.h"
 #include "Direction.h"
+#include "stringplay.h"
 #include <string>
+#include <sstream>
 #include <vector>
 #include <fstream>
 
@@ -11,7 +13,7 @@ void Transition_Function::Load(ifstream & definition,bool & valid)
 {
     string line;
     int pos = definition.tellg();
-    getLine(definition, line);
+    getline(definition, line);
     if(trim(line).empty())
         getline(definition, line);
 
@@ -49,7 +51,7 @@ void Transition_Function::Load(ifstream & definition,bool & valid)
             parseme >> write_character;
             parseme >> move_direction;
             Transition tran(source_state, read_character[0], destination_state, write_character[0], move_direction);
-            transitions.add(tran);
+            transitions.push_back(tran);
         }catch(...)
         {
             cout << "malformed transition at line beginning with : " << source_state << "\n";
@@ -64,8 +66,8 @@ void Transition_Function::View() const
     cout << "Transitions:\n";
     for(int i = 0; i < transitions.size(); i++)
     {
-        cout << "\u03B4(" << transitions[i].source_state() << ", " << transitions[i].read_character() << ") = (";
-        cout << transitions[i].destination_state() << ", " << destinations[i].write_character() << ", " << transitions[i].move_direction() << ")\n";
+        cout << "\u03B4(" << transitions[i].Source_State() << ", " << transitions[i].Read_Character() << ") = (";
+        cout << transitions[i].Destination_State() << ", " << transitions[i].Write_Character() << ", " << transitions[i].Move_Direction() << ")\n";
     }
     cout << "\n";
 }
@@ -76,34 +78,34 @@ int Transition_Function::Size() const
 
 string Transition_Function::Source_State(int index) const
 {
-	return transitions[index].source_state();
+	return transitions[index].Source_State();
 }
 
 char Transition_Function::Read_Character(int index) const
 {
-	return transitions[index].read_character();
+	return transitions[index].Read_Character();
 }
 
 string Transition_Function::Destination_state(int index) const
 {
-	return transitions[index].destination_state();
+	return transitions[index].Destination_State();
 }
 
 char Transition_Function::Write_Character(int index) const
 {
-	return transitions[index].write_character();
+	return transitions[index].Write_Character();
 }
 
 bool Transition_Function::Is_Defined_Transition(string source_state, char read_character, string & destination_state, char & write_character, direction & move_direction) const
 {
     for (int index =0; index<transitions.size();index++)
     {
-        if ((transitions[index].source_state() == source_state) &&
-            (transitions[index].read_character() == read_character))
+        if ((transitions[index].Source_State() == source_state) &&
+            (transitions[index].Read_Character() == read_character))
         {
-            destination_state = transitions[index].destination_state();
-            write_character=transition[index].write_character();
-            move_direction = transitions[index].move_direction();
+            destination_state = transitions[index].Destination_State();
+            write_character=transitions[index].Write_Character();
+            move_direction = transitions[index].Move_Direction();
             return true;
     	}
     }
@@ -114,7 +116,7 @@ bool Transition_Function::Is_Source_State(string state) const
 {
     for (int index =0; index<transitions.size();index++)
     {
-        if (transitions[index].source_state() == state)
+        if (transitions[index].Source_State() == state)
         {
             return true;
         }

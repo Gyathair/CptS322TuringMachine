@@ -13,7 +13,7 @@ void Final_States::Load(ifstream &definition, bool &valid)
 {
 	string line;
 	int pos = definition.tellg();
-	getLine(definition, line);
+	getline(definition, line);
 	if(trim(line).empty())
 		getline(definition, line);
 	stringstream parseme(line);
@@ -30,7 +30,7 @@ void Final_States::Load(ifstream &definition, bool &valid)
 	while(parseme >> current)
 	{
 		Final_State final(current);
-		final_states.add(final);
+		final_states.push_back(final);
 	}
 }
 
@@ -61,10 +61,10 @@ string Final_States::Element(int index) const
 
 bool Final_States::Is_Element(string state) const
 {
-	for(int i = 0; i < states.size(); i ++)
+	for(int i = 0; i < final_states.size(); i ++)
 	{
 		string name;
-		final_states[i].Get_Name(&name);
+		final_states[i].Get_Name(name);
 		if(name.compare( state ) == 0 )
 			return true;
 	}

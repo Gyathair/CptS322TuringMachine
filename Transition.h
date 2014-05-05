@@ -15,10 +15,10 @@ class Transition
         direction move;
     public:
         Transition( string source_state, char read_character, string destination_state, char write_character, direction move_direction);
-        string source_state() const;
-        char read_char() const;
-        string destination_state() const;
-        char write_char() const;
-        direction move_direction() const;
+        string Source_State() const;
+        char Read_Character() const;
+        string Destination_State() const;
+        char Write_Character() const;
+        direction Move_Direction() const;
 };
 #endif

@@ -38,7 +38,6 @@ std::string convertToLower(std::string &buffer)
 std::string keepAlphaNumericWhitespace(std::string &buffer)
 {
     std::string temp = buffer;
-    int count = 0;
     for(unsigned int l=0; l<temp.length(); l++)
     {
         if(isalnum(temp[l]) || isspace(temp[l]))

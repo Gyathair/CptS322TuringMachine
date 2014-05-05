@@ -5,7 +5,7 @@ using namespace std;
 // makes empty strings that are the strings to run on visible
 string Visible(string value)
 {
-    const string Lambda("\\");
+    const string lambda("\\");
     if(value.empty())
         value=lambda;
     return value;

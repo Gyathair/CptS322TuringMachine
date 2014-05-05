@@ -11,29 +11,29 @@ Transition::Transition( string source_state, char read_character, string destina
     write(write_character),
     move(move_direction)
 {
-};
+}
 
-string Transition::source_state() const
+string Transition::Source_State() const
 {
     return source;
 }
 
-char read_char() const
+char Transition::Read_Character() const
 {
     return read;
 }
 
-string Transition::destination_state() const
+string Transition::Destination_State() const
 {
     return destination;
 }
 
-char Transition::write_char() const
+char Transition::Write_Character() const
 {
     return write;
 }
 
-direction Transition::move_direction() const
+direction Transition::Move_Direction() const
 {
     return move;
 }

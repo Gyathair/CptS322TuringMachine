@@ -1,6 +1,8 @@
 #include "Tape_Alphabet.h"
+#include "stringplay.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
 using namespace std;
@@ -9,7 +11,7 @@ void Tape_Alphabet::Load(ifstream &definition, bool &valid)
 {
 	string line;
 	int pos = definition.tellg();
-	getLine(definition, line);
+	getline(definition, line);
 	if(trim(line).empty())
 		getline(definition, line);
 	stringstream parseme(line);
@@ -25,7 +27,7 @@ void Tape_Alphabet::Load(ifstream &definition, bool &valid)
 
 	while(parseme >> current)
 	{
-		alphabet.add(current[0]);
+		alphabet.push_back(current[0]);
 	}
 }
 
