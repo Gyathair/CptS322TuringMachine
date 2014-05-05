@@ -33,7 +33,7 @@ public:
 	Turing_Machine(string definition_file_name);
 	void View_Definition() const;
 	void View_Instantaneous_Desc(int maximum_number_of_cells) const;
-	void Initialize(string input_string);
+	bool Initialize(string input_string);
 	void Perform_Transitions(int maximum_number_of_transitions);
 	void Terminate_Operation();
 	string Get_Input_String() const;

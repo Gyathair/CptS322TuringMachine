@@ -14,7 +14,7 @@ void Transition_Function::Load(ifstream & definition,bool & valid)
     string line;
     int pos = definition.tellg();
     getline(definition, line);
-    if(trim(line).empty())
+    if(trim(line, " \t").empty())
         getline(definition, line);
 
     if(convertToUpper(line).compare("TRANSITION_FUNCTION:")!=0)
@@ -26,16 +26,13 @@ void Transition_Function::Load(ifstream & definition,bool & valid)
     }
     while(true)
     {
-        getline(definition,line);
-        if(line.empty())
-            continue;
-
         pos = definition.tellg();
+        getline(definition,line);
 
         stringstream parseme(line);
         string current;
         parseme >> current;
-        if(current.compare("INITIAL_STATE:"))
+        if(current.compare("INITIAL_STATE:")==0)
         {
             break;
         }
@@ -45,7 +42,7 @@ void Transition_Function::Load(ifstream & definition,bool & valid)
         string write_character;
         direction move_direction;
         try{
-            parseme >> source_state;
+            source_state = current;
             parseme >> read_character;
             parseme >> destination_state;
             parseme >> write_character;
@@ -98,7 +95,7 @@ char Transition_Function::Write_Character(int index) const
 
 bool Transition_Function::Is_Defined_Transition(string source_state, char read_character, string & destination_state, char & write_character, direction & move_direction) const
 {
-    for (int index =0; index<transitions.size();index++)
+    for (int index = 0; index<transitions.size();index++)
     {
         if ((transitions[index].Source_State() == source_state) &&
             (transitions[index].Read_Character() == read_character))

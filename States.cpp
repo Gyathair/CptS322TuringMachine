@@ -15,7 +15,7 @@ void States::Load(ifstream &definition, bool &valid)
 	string line;
 	int pos = definition.tellg();
 	getline(definition, line);
-	if(trim(line).empty())
+	if(trim(line, " \t").empty())
 		getline(definition, line);
 	stringstream parseme(line);
 	string current;
@@ -38,8 +38,8 @@ void States::Load(ifstream &definition, bool &valid)
 void States::View() const
 {
 	cout << "Q = { ";
-	cout << Element(1);
-	for(int i = 1; i < states.size(); i ++)
+	cout << Element(0);
+	for(int i = 1; i < Size(); i ++)
 	{
 		cout << ", " << Element(i);
 	}
@@ -48,12 +48,12 @@ void States::View() const
 
 int States::Size() const
 {
-	return State::Total_Number_Of_States();
+	return states.size();
 }
 
 string States::Element(int index) const
 {
-	if(index >= states.size())
+	if(index >= Size())
 		throw Crash("States' index outside of bounds");
 	string name;
 	states[index].Get_Name(name);
@@ -62,7 +62,7 @@ string States::Element(int index) const
 
 bool States::Is_Element(string state) const
 {
-	for(int i = 0; i < states.size(); i ++)
+	for(int i = 0; i < Size(); i ++)
 	{
 		string name;
 		states[i].Get_Name(name);

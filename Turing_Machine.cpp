@@ -5,17 +5,78 @@
 #include "Transition_Function.h"
 #include "States.h"
 #include "Final_States.h"
+#include "stringplay.h"
 #include <string>
 #include <vector>
-#include <ifstream>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
 Turing_Machine::Turing_Machine(string definition_file_name)
 {
-	//TODO: call load()'s
+	used = false;
+	valid = true;
+	accepted = false;
+	rejected = false;
+	ifstream definition(definition_file_name.c_str());
 
-	//TODO validate TM
+	string line;
+	int pos = definition.tellg();
+	std::string prefix("STATES:");
+	while(line.compare(0, prefix.size(), prefix)!=0)
+	{
+		pos = definition.tellg();
+		getline(definition,line);
+	}
+	definition.seekg(pos);
+
+	states.Load(definition, valid);
+	input_alphabet.Load(definition, valid);
+	tape_alphabet.Load(definition, valid);
+	transition_function.Load(definition, valid);
+	//load default state
+	pos = definition.tellg();
+	getline(definition, line);
+	if(trim(line, " \t").empty())
+		getline(definition, line);
+	stringstream parseme(line);
+	string current;
+	parseme >> current;
+	if(convertToUpper(current).compare("INITIAL_STATE:")!=0)
+	{
+		definition.seekg(pos, definition.beg);
+		cout << "Initial State not defined\n";
+		valid = false;
+	}else{
+		parseme >> initial_state;
+	}
+	tape.Load(definition, valid);
+	final_states.Load(definition, valid);
+
+	if(valid)
+	{
+		if(!states.Is_Element(initial_state))
+		{
+			valid = false;
+			cout << "Initial state of \'"<< initial_state << "\' must be a valid state\n";
+		}
+		if(input_alphabet.Is_Element(tape.Get_Blank_Character()))
+		{
+			valid = false;
+			cout << "Input alphabet should not contain blank character\n";
+		}
+		if(!tape_alphabet.Is_Element(tape.Get_Blank_Character()))
+		{
+			valid = false;
+			cout << "Tape alphabet should contain blank character\n";
+		}
+	}
+	if(valid)
+		cout << "Turing Machine " << definition_file_name << " successfully loaded\n";
+	else
+		cout << "Turing Machine " << definition_file_name << " had errors loading\n";
+	definition.close();
 }
 void Turing_Machine::View_Definition() const
 {
@@ -34,20 +95,22 @@ void Turing_Machine::View_Instantaneous_Desc(int maximum_number_of_cells) const
 	cout << tape.Left(maximum_number_of_cells) << "[" << current_state << "]" << tape.Right(maximum_number_of_cells) << "\n\n";
 }
 
-void Turing_Machine::Initialize(string input_string)
+bool Turing_Machine::Initialize(string input_string)
 {
 	if(used)
 	{
 		cout << "You must terminate currently running machine to start a new one\n\n";
-		return;
+		return false;
 	}
 	original_input_string = input_string;
 	current_state = initial_state;
 	tape.Initialize(input_string);
-	operating = false;
+	number_of_transitions = 0;
+	operating = true;
 	used = true;
 	accepted = false;
 	rejected = false;
+	return true;
 }
 
 void Turing_Machine::Perform_Transitions(int maximum_number_of_transitions)
@@ -87,10 +150,13 @@ void Turing_Machine::Perform_Transitions(int maximum_number_of_transitions)
 
 void Turing_Machine::Terminate_Operation()
 {
-	operating = false;
-	used = false;
-	accepted = false;
-	rejected = false;
+	if(operating)
+	{
+		operating = false;
+		used = false;
+		accepted = false;
+		rejected = false;
+	}
 }
 
 string Turing_Machine::Get_Input_String() const
@@ -112,7 +178,7 @@ bool Turing_Machine::Is_Valid_Input_String(string value) const
 {
 	for(int i = 0; i < value.size(); i++)
 	{
-		if(!tape_alphabet.Is_Element(value[i]))
+		if(!input_alphabet.Is_Element(value[i]))
 			return false;
 	}
 	return true;

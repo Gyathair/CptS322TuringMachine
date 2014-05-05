@@ -12,7 +12,7 @@ void Tape_Alphabet::Load(ifstream &definition, bool &valid)
 	string line;
 	int pos = definition.tellg();
 	getline(definition, line);
-	if(trim(line).empty())
+	if(trim(line, " \t").empty())
 		getline(definition, line);
 	stringstream parseme(line);
 	string current;
@@ -35,7 +35,7 @@ void Tape_Alphabet::View() const
 {
 	cout << "\u0393 = { ";
 	cout << alphabet[0];
-	for(int i = 1; i < alphabet.size(); i++)
+	for(int i = 1; i < Size(); i++)
 	{
 		cout << ", " << alphabet[i];
 	}
@@ -54,5 +54,10 @@ char Tape_Alphabet::Element(const int& index) const
 
 bool Tape_Alphabet::Is_Element(const char& value) const
 {
+	for(int i = 0; i < Size(); i++)
+	{
+		if(alphabet[i]==value)
+			return true;
+	}
 	return false;
 }

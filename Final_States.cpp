@@ -14,7 +14,7 @@ void Final_States::Load(ifstream &definition, bool &valid)
 	string line;
 	int pos = definition.tellg();
 	getline(definition, line);
-	if(trim(line).empty())
+	if(trim(line, " \t").empty())
 		getline(definition, line);
 	stringstream parseme(line);
 	string current;
@@ -37,8 +37,8 @@ void Final_States::Load(ifstream &definition, bool &valid)
 void Final_States::View() const
 {
 	cout << "F = { ";
-	cout << Element(1);
-	for(int i = 1; i < final_states.size(); i ++)
+	cout << Element(0);
+	for(int i = 1; i < Size(); i ++)
 	{
 		cout << ", " << Element(i);
 	}
@@ -52,7 +52,7 @@ int Final_States::Size() const
 
 string Final_States::Element(int index) const
 {
-	if(index >= final_states.size())
+	if(index >= Size())
 		throw Crash("States' index outside of bounds");
 	string name;
 	final_states[index].Get_Name(name);
@@ -61,7 +61,7 @@ string Final_States::Element(int index) const
 
 bool Final_States::Is_Element(string state) const
 {
-	for(int i = 0; i < final_states.size(); i ++)
+	for(int i = 0; i < Size(); i ++)
 	{
 		string name;
 		final_states[i].Get_Name(name);

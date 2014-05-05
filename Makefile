@@ -5,6 +5,8 @@ all: tm
 
 test: Main_StateTest Main_TapeTest
 
+stringplay.o: stringplay.cpp stringplay.h
+	$(CC) $(OPTIONS) -c stringplay.cpp -o stringplay.o
 Tape.o: Tape.cpp Tape.h
 	$(CC) $(OPTIONS) -c Tape.cpp -o Tape.o
 State.o: State.cpp State.h
@@ -33,8 +35,8 @@ Tape_Alphabet.o: Tape_Alphabet.cpp Tape_Alphabet.h
 tm.o: Main.cpp 
 	$(CC) $(OPTIONS) -c Main.cpp -o tm.o
 
-tm: tm.o Tape.o Crash.o State.o Final_State.o Final_States.o States.o Transition.o Transition_Function.o Visible.o Turing_Machine.o Input_Alphabet.o Tape_Alphabet.o
-	$(CC) $(OPTIONS) tm.o Tape.o State.o Crash.o -o tm
+tm: tm.o Tape.o Crash.o State.o Final_State.o Final_States.o States.o Transition.o Transition_Function.o Visible.o Turing_Machine.o Input_Alphabet.o Tape_Alphabet.o stringplay.o
+	$(CC) $(OPTIONS) tm.o Tape.o Crash.o State.o Final_State.o Final_States.o States.o Transition.o Transition_Function.o Visible.o Turing_Machine.o Input_Alphabet.o Tape_Alphabet.o stringplay.o -o tm
 
 Main_StateTest.o: Main_StateTest.cpp
 	$(CC) $(OPTIONS) -c Main_StateTest.cpp -o Main_StateTest.o

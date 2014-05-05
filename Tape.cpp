@@ -17,11 +17,20 @@ Tape::Tape():cells(" "),current_cell(0), blank(' ')
 void Tape::Load(ifstream & definition, bool &valid)
 {
     string value;
-    if((definition >> value) && (value.length()==1) && (value[0]!='\\') && (value[0]!='[') && (value[0]!=']') && (value[0]!='<') && (value[0]!='>') && (value[0]>='!') && (value[0]<='~'))
+
+    if((definition >> value) && value.compare("BLANK_CHARACTER:")==0 && (definition >> value))
+    {
+
+    }else{
+       	cout << "Illegal blank character of\'" << value << "\'"<< (((value[0]>='!') && (value[0]<='~'))?"true":"false")<<"\n";
+       	valid = false;
+    }
+
+    if((value.length()==1) && (value[0]!='\\') && (value[0]!='[') && (value[0]!=']') && (value[0]!='<') && (value[0]!='>') && (value[0]>='!') && (value[0]<='~'))
     {
        	blank = value[0];
     }else{
-       	cout << "Illegal blank character.\n";
+       	cout << "Illegal blank character of\'" << value << "\'"<< (((value[0]>='!') && (value[0]<='~'))?"true":"false")<<"\n";
        	valid = false;
 	}
 	int pos = definition.tellg();
