@@ -1,0 +1,85 @@
+Testing:
+
+Purpose is to execute program with intent of finding an error.
+want to design tests that uncover different classes of errors
+good test case has high probability of finding a new error
+successful test is one that uncovers new error
+used to demonstrate application appears to be functioning correctly, providing an indication of reliability and quality
+
+Testing can only show that errors in software are present
+cannot show absense of errors
+
+test plan consists of test cases and expect results
+in executing test plan, test are conducted and results are evaluated by comparing them with expected results
+
+due to uncertainty associated with debugging, testing is difficult to schedule reliably.
+
+if application appears to be functioning and errors encountered are easily corrected, either
+	-software is acceptable
+or
+	-test inadequate to uncover significant errors
+
+want to design tests with a highest chance of finding most errors with minimal time and effort
+
+2 approaches:
+	-white box testing - ealier
+	-black box testing - later
+
+white box testing
+	- focuses on internal structure of program
+	- ensure all statements are executed
+	- all objects have been used with integrity of data maintained
+	- should exercise all logical conditions
+	- execute all loops at their boundaries and within bounds
+
+black box testing
+	- focuses on some aspect from requirements spec.
+	- No regard to internal structure of application
+	- Test cases are intended to show that application is operational by demonstrating that input is peroperly accepted, output is correcly produced, and integrity of external information is maintained
+	- Errors in object-orented application thend to be more localized, easier to fix
+
+
+Testing strategy
+1 unit testing
+2 integration testing
+3 validation testing
+3 system testing
+
+Unit testing : focus on each module individually
+
+uses stubbed versions of other halves
+Integration testing is where unit tested modules are integrated together to form complete application
+incremental integration- errors are easier to isolate and correct
+to make sure that new errors are not introduced as integration proceeds, previous test cases are executed again - called regression testing
+validation testing provides final assuracne that applicationmeets all functional and performance requirements from specification
+for custom software, customer validates requirements through series of acceptance tests
+
+for software product acceptance testing is impractical
+alpha and beta testing are used instead to validate software
+alpha - developer site in a controlled environment
+beta - customer site without presence of developer, environment cannot be controlled
+
+system testing verifies that software f=functions correctly with all other components of system
+tests tend to be small, testing individual functionality
+tend to have many small tests
+
+test case:
+-----------------------------
+Description:
+
+
+-----------------------------
+Expected results:
+
+-----------------------------
+Actual results:
+
+-----------------------------
+<end test case>
+Make those for the test document
+
+
+
+
+
+
