@@ -118,7 +118,7 @@ int main(int argc, char * argv[])
 				{
 					changesMadeToStringFile = true;
 					listOfInputStrings.push_back(inputString);
-					cout << "String inserted at position " << listOfInputStrings.size() < "\n";
+					cout << "String inserted at position " << listOfInputStrings.size() << "\n";
 				}else{
 					cout << "The string you entered is not in the input alphabet\n";
 				}
